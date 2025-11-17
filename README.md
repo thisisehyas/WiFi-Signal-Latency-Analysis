@@ -49,3 +49,21 @@ WiFi-Signal-Latency-Analysis/
 ```
 
 ## **Analysis Steps**
+
+### **1. Initial Exploration**
+
+The first step was to explore the dataset using summary statistics, histograms, and boxplots. Early inspection showed that the `latency_ms` feature was highly skewed and contained extreme values.
+
+![Latency Histogram Before Handling Outliers](results/latency_hist_before.png)
+
+### **2. Outlier Handling**
+
+A log transformation was applied to reduce the effect of long-tailed values.  
+Before transforming, outliers were detected using the **z-score method**, and the outlier values in the `latency_ms` column were **replaced with the column median**, which helped normalize the distribution.
+
+Before and after transformation:
+
+![Latency Histogram after Handling Outliers](results/latency_hist_after.png)
+
+![Latency Histogram After Applying Log Transformation](results/latency_log_hist.png)
+
