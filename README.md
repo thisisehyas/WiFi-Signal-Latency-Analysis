@@ -58,8 +58,8 @@ The first step was to explore the dataset using summary statistics, histograms, 
 
 ### **2. Outlier Handling**
 
-A log transformation was applied to reduce the effect of long-tailed values.  
-Before transforming, outliers were detected using the **z-score method**, and the outlier values in the `latency_ms` column were **replaced with the column median**, which helped normalize the distribution.
+A log transformation was applied to reduce the effect of long-tailed values.
+Before transforming, outliers were detected using the z-score method, and the outlier values in the latency_ms column were replaced with the column mean, which helped normalize the distribution.
 
 Before and after transformation:
 
@@ -67,3 +67,55 @@ Before and after transformation:
 
 ![Latency Histogram After Applying Log Transformation](results/latency_log_hist.png)
 
+### **3. Correlation and Feature Relationships**
+
+A correlation heatmap was used to examine how numerical variables relate to each other and to `latency_ms`.  
+This helped identify features with meaningful linear relationships.
+
+![Correlation Heatmap](results/correlation_heatmap.png)
+
+### **4. Mutual Information Ranking**
+
+To capture non-linear relationships between features and `latency_ms`, a **custom MI function** was implemented.  
+This method estimates how much information each feature contributes to predicting latency.
+
+A heatmap summarizing the MI scores is included below:
+![Mutual Information Heatmap](results/mi_heatmap.png)
+
+The highest-ranked features in terms of MI were:
+
+1. **SNR (snr_db)**
+2. **RSSI (rssi_dbm)**
+3. **Client speed (client_speed_mbps)**
+
+### **5. Comparison Across Frequency Bands**
+
+A boxplot was used to compare latency (after log transformation) between 2.4 GHz and 5 GHz bands.
+
+![Latency Comparison Boxplot](results/latency_boxplot.png)
+
+The 5 GHz band generally showed lower latency, which aligns with expected Wi-Fi performance patterns.
+
+## **How to Reproduce the Analysis**
+
+### **1. Clone the repository**
+
+```bash
+git clone git@github.com:thisisehyas/WiFi-Signal-Latency-Analysis.git
+cd WiFi-Signal-Latency-Analysis
+```
+
+### **3. Open the notebook**
+
+You can run the notebook in Jupyter or Google Colab:
+
+```
+notebooks/wifi_latency_analysis.ipynb
+```
+
+## **Key Findings (Short Summary)**
+
+- Wi-Fi latency is affected most strongly by **signal quality** — especially **SNR** and **RSSI**.
+- Higher channel utilization and a larger number of associated devices also lead to increased latency.
+- The **5 GHz band** generally provides lower latency than the 2.4 GHz band.
+- Mutual Information analysis gives a clearer picture than simple correlation, because it captures **non-linear** effects.
