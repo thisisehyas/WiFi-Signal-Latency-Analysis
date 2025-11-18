@@ -61,7 +61,7 @@ The first step was to explore the dataset using summary statistics, histograms, 
 A log transformation was applied to reduce the effect of long-tailed values.
 Before transforming, outliers were detected using the z-score method, and the outlier values in the latency_ms column were replaced with the column mean, which helped normalize the distribution.
 
-Before and after transformation:
+After transformation:
 
 ![Latency Histogram after Handling Outliers](results/latency_hist_after.png)
 
